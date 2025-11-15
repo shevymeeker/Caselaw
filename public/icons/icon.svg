@@ -1,0 +1,11 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">KY Search &amp; Seizure Explorer</title>
+  <rect width="256" height="256" rx="40" fill="#1e40af" />
+  <g fill="none" stroke="#ffffff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60 150l96-96 24 24-96 96" />
+    <path d="M76 166l24 24" />
+    <path d="M160 62l34 34" />
+    <rect x="44" y="176" width="120" height="20" rx="10" />
+    <path d="M188 180h24" />
+  </g>
+</svg>

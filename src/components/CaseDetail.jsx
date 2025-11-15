@@ -1,88 +1,85 @@
 import { BookOpen, Calendar, Building2, ExternalLink } from 'lucide-react'
+import { Box, Button, Chip, Paper, Stack, Typography } from '@mui/material'
 
 function CaseDetail({ selectedCase }) {
   if (!selectedCase) {
     return (
-      <div className="case-detail">
-        <div className="no-selection">
-          <BookOpen size={64} />
-          <h2>Select a case to view details</h2>
-          <p>Click on any case from the list to see full information</p>
-        </div>
-      </div>
+      <Paper sx={{ p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+        <BookOpen size={64} />
+        <Typography variant="h5">Select a case to view details</Typography>
+        <Typography variant="body2" sx={{ color: '#475569' }}>
+          Choose a case from the list to review the holding, facts, and significance.
+        </Typography>
+      </Paper>
     )
   }
 
   return (
-    <div className="case-detail">
-      <div className="detail-header">
-        <h2>{selectedCase.name}</h2>
-        <div className="detail-meta">
-          <span className="meta-item">
+    <Paper sx={{ p: 4, display: 'flex', flexDirection: 'column', gap: 3, height: '100%', overflowY: 'auto' }}>
+      <Box>
+        <Typography variant="h4" sx={{ mb: 1 }}>
+          {selectedCase.name}
+        </Typography>
+        <Stack direction="row" spacing={2} alignItems="center" sx={{ color: '#475569' }}>
+          <Stack direction="row" spacing={1} alignItems="center">
             <Calendar size={16} />
-            {selectedCase.year}
-          </span>
-          <span className="meta-item">
+            <Typography variant="body2">{selectedCase.year}</Typography>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="center">
             <Building2 size={16} />
-            {selectedCase.courtLevel}
-          </span>
-        </div>
-      </div>
+            <Typography variant="body2">{selectedCase.courtLevel}</Typography>
+          </Stack>
+        </Stack>
+      </Box>
 
-      <div className="detail-section">
-        <h3>Citation</h3>
-        <p className="citation-text">{selectedCase.citation}</p>
-      </div>
+      <Box>
+        <Typography variant="subtitle1">Citation</Typography>
+        <Typography variant="body1">{selectedCase.citation}</Typography>
+      </Box>
 
-      <div className="detail-section">
-        <h3>Summary</h3>
-        <p>{selectedCase.summary}</p>
-      </div>
+      <Box>
+        <Typography variant="subtitle1">Summary</Typography>
+        <Typography variant="body1" sx={{ color: '#1f2937' }}>
+          {selectedCase.summary}
+        </Typography>
+      </Box>
 
-      <div className="detail-section">
-        <h3>Key Facts</h3>
-        <ul className="facts-list">
+      <Box>
+        <Typography variant="subtitle1">Key Facts</Typography>
+        <Box component="ul" sx={{ pl: 3, display: 'flex', flexDirection: 'column', gap: 1 }}>
           {selectedCase.facts.map((fact, index) => (
             <li key={index}>{fact}</li>
           ))}
-        </ul>
-      </div>
+        </Box>
+      </Box>
 
-      <div className="detail-section">
-        <h3>Holding</h3>
-        <p className="holding-text">{selectedCase.holding}</p>
-      </div>
+      <Box>
+        <Typography variant="subtitle1">Holding</Typography>
+        <Typography variant="body1">{selectedCase.holding}</Typography>
+      </Box>
 
-      <div className="detail-section">
-        <h3>Significance</h3>
-        <p>{selectedCase.significance}</p>
-      </div>
+      <Box>
+        <Typography variant="subtitle1">Significance</Typography>
+        <Typography variant="body1">{selectedCase.significance}</Typography>
+      </Box>
 
-      <div className="detail-section">
-        <h3>Categories</h3>
-        <div className="case-tags">
-          {selectedCase.categories.map(category => (
-            <span key={category} className="tag tag-large">
-              {category}
-            </span>
-          ))}
-        </div>
-      </div>
+      <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: '8px' }}>
+        {selectedCase.categories.map(category => (
+          <Chip key={category} label={category} color="secondary" variant="filled" />
+        ))}
+      </Stack>
 
       {selectedCase.url && (
-        <div className="detail-actions">
-          <a
-            href={selectedCase.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary"
-          >
-            <ExternalLink size={18} />
-            Read Full Opinion
-          </a>
-        </div>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => window.open(selectedCase.url, '_blank', 'noopener,noreferrer')}
+          startIcon={<ExternalLink size={18} />}
+        >
+          Read Full Opinion
+        </Button>
       )}
-    </div>
+    </Paper>
   )
 }
 

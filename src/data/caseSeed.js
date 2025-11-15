@@ -1,7 +1,7 @@
 // Sample Kentucky Search & Seizure Cases
 // Note: Replace with actual case data from Kentucky courts
 
-export const casesData = [
+export const caseSeed = [
   {
     id: 1,
     name: 'Commonwealth v. Smith',

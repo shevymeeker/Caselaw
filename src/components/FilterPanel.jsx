@@ -1,6 +1,7 @@
 import { Filter } from 'lucide-react'
+import { Button, Paper, Stack, TextField } from '@mui/material'
 
-function FilterPanel({ filters, setFilters }) {
+function FilterPanel({ filters, setFilters, options }) {
   const handleFilterChange = (filterType, value) => {
     setFilters(prev => ({
       ...prev,
@@ -22,65 +23,58 @@ function FilterPanel({ filters, setFilters }) {
     filters.category !== 'all'
 
   return (
-    <div className="filter-panel">
-      <div className="filter-header">
+    <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <Stack direction="row" alignItems="center" spacing={2}>
         <Filter size={18} />
-        <span>Filters</span>
+        <strong>Filters</strong>
         {hasActiveFilters && (
-          <button className="reset-filters" onClick={resetFilters}>
+          <Button variant="text" color="primary" onClick={resetFilters}>
             Reset
-          </button>
+          </Button>
         )}
-      </div>
-      <div className="filters">
-        <div className="filter-group">
-          <label htmlFor="court-level">Court Level</label>
-          <select
-            id="court-level"
-            value={filters.courtLevel}
-            onChange={e => handleFilterChange('courtLevel', e.target.value)}
-          >
-            <option value="all">All Courts</option>
-            <option value="supreme">Supreme Court</option>
-            <option value="appeals">Court of Appeals</option>
-            <option value="district">District Court</option>
-          </select>
-        </div>
-
-        <div className="filter-group">
-          <label htmlFor="year">Year</label>
-          <select
-            id="year"
-            value={filters.year}
-            onChange={e => handleFilterChange('year', e.target.value)}
-          >
-            <option value="all">All Years</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
-          </select>
-        </div>
-
-        <div className="filter-group">
-          <label htmlFor="category">Category</label>
-          <select
-            id="category"
-            value={filters.category}
-            onChange={e => handleFilterChange('category', e.target.value)}
-          >
-            <option value="all">All Categories</option>
-            <option value="warrant">Warrants</option>
-            <option value="vehicle">Vehicle Searches</option>
-            <option value="consent">Consent Searches</option>
-            <option value="plain-view">Plain View</option>
-            <option value="exigent">Exigent Circumstances</option>
-            <option value="arrest">Arrest</option>
-          </select>
-        </div>
-      </div>
-    </div>
+      </Stack>
+      <Stack direction="row" spacing={3} sx={{ flexWrap: 'wrap' }}>
+        <TextField
+          select
+          label="Court Level"
+          value={filters.courtLevel}
+          onChange={event => handleFilterChange('courtLevel', event.target.value)}
+        >
+          <option value="all">All Courts</option>
+          {options.courtLevels.map(level => (
+            <option key={level} value={level}>
+              {level}
+            </option>
+          ))}
+        </TextField>
+        <TextField
+          select
+          label="Year"
+          value={filters.year}
+          onChange={event => handleFilterChange('year', event.target.value)}
+        >
+          <option value="all">All Years</option>
+          {options.years.map(year => (
+            <option key={year} value={String(year)}>
+              {year}
+            </option>
+          ))}
+        </TextField>
+        <TextField
+          select
+          label="Category"
+          value={filters.category}
+          onChange={event => handleFilterChange('category', event.target.value)}
+        >
+          <option value="all">All Categories</option>
+          {options.categories.map(category => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </TextField>
+      </Stack>
+    </Paper>
   )
 }
 
