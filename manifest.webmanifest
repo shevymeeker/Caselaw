@@ -1,0 +1,17 @@
+{
+  "name": "Kentucky Search & Seizure Explorer",
+  "short_name": "KY Case Law",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1e40af",
+  "theme_color": "#1e40af",
+  "description": "Offline-first reference for Kentucky search and seizure case law.",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
