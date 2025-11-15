@@ -1,5 +1,5 @@
 import { Dexie } from 'dexie'
-import { caseSeed } from './caseSeed'
+import { caseSeed } from './cases'
 
 export const db = new Dexie('ky-search-seizure')
 

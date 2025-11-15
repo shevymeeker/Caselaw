@@ -1,4 +1,4 @@
-[
+export const caseSeed = [
   {
     "id": 1,
     "name": "Delaware v. Prouse",
