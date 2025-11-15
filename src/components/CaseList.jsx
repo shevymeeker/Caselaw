@@ -1,49 +1,48 @@
 import { FileText } from 'lucide-react'
+import { Chip, List, ListItemButton, Paper, Stack, Typography } from '@mui/material'
 
-function CaseList({ cases, selectedCase, onSelectCase }) {
+function CaseList({ cases, selectedCaseId, onSelectCase }) {
   if (cases.length === 0) {
     return (
-      <div className="case-list">
-        <div className="no-results">
-          <FileText size={48} />
-          <p>No cases found matching your criteria</p>
-          <p className="hint">Try adjusting your search or filters</p>
-        </div>
-      </div>
+      <Paper sx={{ p: 4, textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <FileText size={48} />
+        <Typography variant="h6">No cases found</Typography>
+        <Typography variant="body2">Try adjusting your filters or search keywords.</Typography>
+      </Paper>
     )
   }
 
   return (
-    <div className="case-list">
-      <div className="case-list-header">
-        <span className="results-count">
-          {cases.length} {cases.length === 1 ? 'case' : 'cases'} found
-        </span>
-      </div>
-      <div className="cases">
+    <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 2, height: '100%' }}>
+      <Typography variant="subtitle1" color="#475569">
+        {cases.length} {cases.length === 1 ? 'case' : 'cases'} found
+      </Typography>
+      <List sx={{ overflowY: 'auto', maxHeight: '70vh' }}>
         {cases.map(caseItem => (
-          <div
+          <ListItemButton
             key={caseItem.id}
-            className={`case-card ${selectedCase?.id === caseItem.id ? 'selected' : ''}`}
-            onClick={() => onSelectCase(caseItem)}
+            selected={selectedCaseId === caseItem.id}
+            onClick={() => onSelectCase(caseItem.id)}
           >
-            <div className="case-card-header">
-              <h3 className="case-name">{caseItem.name}</h3>
-              <span className="case-year">{caseItem.year}</span>
-            </div>
-            <p className="case-citation">{caseItem.citation}</p>
-            <p className="case-summary">{caseItem.summary}</p>
-            <div className="case-tags">
-              {caseItem.categories.map(category => (
-                <span key={category} className="tag">
-                  {category}
-                </span>
-              ))}
-            </div>
-          </div>
+            <Stack spacing={1} alignItems="flex-start">
+              <Stack direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
+                <Typography variant="h5">{caseItem.name}</Typography>
+                <Typography variant="body2">{caseItem.year}</Typography>
+              </Stack>
+              <Typography variant="body2">{caseItem.citation}</Typography>
+              <Typography variant="body2" sx={{ color: '#475569' }}>
+                {caseItem.summary}
+              </Typography>
+              <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: '8px' }}>
+                {caseItem.categories.map(category => (
+                  <Chip key={category} label={category} color="primary" variant="filled" />
+                ))}
+              </Stack>
+            </Stack>
+          </ListItemButton>
         ))}
-      </div>
-    </div>
+      </List>
+    </Paper>
   )
 }
 

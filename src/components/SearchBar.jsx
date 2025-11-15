@@ -1,26 +1,30 @@
-import { Search } from 'lucide-react'
+import { Search, X } from 'lucide-react'
+import { IconButton, InputAdornment, TextField } from '@mui/material'
 
 function SearchBar({ searchTerm, setSearchTerm }) {
   return (
-    <div className="search-bar">
-      <Search className="search-icon" size={20} />
-      <input
-        type="text"
-        className="search-input"
-        placeholder="Search cases by name, citation, or keywords..."
-        value={searchTerm}
-        onChange={e => setSearchTerm(e.target.value)}
-      />
-      {searchTerm && (
-        <button
-          className="clear-button"
-          onClick={() => setSearchTerm('')}
-          aria-label="Clear search"
-        >
-          ✕
-        </button>
-      )}
-    </div>
+    <TextField
+      label="Search cases"
+      placeholder="Search by case name, citation, holding, or fact pattern"
+      value={searchTerm}
+      onChange={event => setSearchTerm(event.target.value)}
+      fullWidth
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <Search size={18} />
+          </InputAdornment>
+        ),
+        endAdornment:
+          searchTerm !== '' ? (
+            <InputAdornment position="end">
+              <IconButton ariaLabel="Clear search" onClick={() => setSearchTerm('')}>
+                <X size={16} />
+              </IconButton>
+            </InputAdornment>
+          ) : null,
+      }}
+    />
   )
 }
 
